@@ -1,0 +1,31 @@
+<form action="/movimentos/new" method="POST">
+<label for="title">Título</label>   <input type="text" name="title" id="">
+<label for="description">Descrição</label>   <textarea name="description" id="" cols="10" rows="5"></textarea>
+    <label for="isDespesa">Crédito/Débito</label><input type="checkbox" name="isDespesa" value="true">
+    <label for="date">Data</label><input type="date" name="date">
+    <label for="value">Valor</label><input type="number" name="value" step="0.01" min="0.00" >
+    <label for="wasPaidByOther">Paga por outro?</label><input type="checkbox" name="wasPaidByOther" value="false">
+    <input type="submit">
+</form>
+<table summary="All the movements... and shit" class="movements-table">
+    <thead>
+        <th>Title</th>
+        <th>Value</th>
+        <th>Date</th>
+    </thead>
+    {% for movement in movimentos %}
+    <tr class="{% if loop.first %} first{% endif %} {% if movement.isDespesa %} movements-table__row--despesa {% else %} movements-table__row--credito {% endif %} {% if movement.wasPaidByOther %} movements-table__row--paid-by-other {% endif %}" data-id={{movement.id}} >
+        <td>
+            {{movement.title}}
+        </td>
+        <td>
+            {{movement.value}}
+        </td>
+        
+        <td>
+            {{movement.date|date('Y-m-d') }}
+        </td>
+
+    </tr>
+    {% endfor %}
+</table>
