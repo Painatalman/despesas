@@ -9,9 +9,9 @@ module.exports = function(options){
         fields:{
             title:{
                 validate: function(value){
-                    if (value.length < 5 || value.length > 20)
+                    if (value.length < 2 || value.length > 20)
                         {
-                            throw new Error("Minimum 5 characters and maximum 20");
+                            throw new Error("Minimum 2 characters and maximum 20");
                         }
                     else{
                         return value;

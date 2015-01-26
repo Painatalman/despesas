@@ -1,4 +1,7 @@
-var mongoose = require('mongoose');
+var mongoose = require('mongoose'),
+    Lista = require('./lista.js'),
+    Padrao = require('./padrao_movimento.js'),
+    enumerates = require('./enums/movimento.js');
 
 var movimentoSchema = new mongoose.Schema({
     conta: {
@@ -20,8 +23,8 @@ var movimentoSchema = new mongoose.Schema({
     },
     wasPaidByOther: {
         type: Boolean,
-        required: true,
-        default: false
+        required: false
+        // default: false
     },
     image: {
         type: String
@@ -30,6 +33,14 @@ var movimentoSchema = new mongoose.Schema({
         type: Date,
         required: true
     },
+    type: {
+        // despesas:
+        //   'sh','fd','o' -> shopping, food, other
+        // credito:
+        //   's', 'g', 'o' -> salary, gift, other
+        type: String,
+        enum: enumerates.expense_types.concat(enumerates.income_types),
+    },
     value: {
         type: Number,
         required: true
@@ -37,6 +48,14 @@ var movimentoSchema = new mongoose.Schema({
     date_added: {
         type: Date,
         default: Date.now
+    },
+    lista: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Lista',
+    },
+    schedule: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Schedule',
     }
 });
 
