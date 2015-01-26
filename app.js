@@ -11,6 +11,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require("express-session");
+var MongoStore = require('connect-mongo')(session);
 
 
 // START EXPRESS
@@ -37,7 +38,16 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
-app.use(session({secret: "Ilikemetalgear"}));
+app.use(session({
+    secret: "Ilikemetalgear",
+    resave: false,
+    saveUninitialized: true,
+    store: new MongoStore({
+        db: 'despesas',
+        host: '127.0.0.1',
+        //port:3355
+    })
+}));
 app.use(require('node-compass')({mode: 'expanded'}));
 
 ////////////////////////////////
@@ -45,7 +55,7 @@ app.use(require('node-compass')({mode: 'expanded'}));
 // VIEWS and VIEW ENGINE
 //
 /////////////////////////
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join( __dirname, 'views'));
 
 var swig = require('swig');
 app.engine('.html', swig.renderFile);
@@ -57,7 +67,7 @@ app.set('view engine', 'html');
 // STATIC FILE DIRECTORIES
 //
 ///////////////////////////////////////
-app.use("public",express.static(path.join(__dirname, 'public')));
+app.use("public", express.static(path.join( __dirname, 'public')));
 // app.use(express.static(path.join(__dirname, 'public')));
 // app.use('/uploads',express.static(path.join(__dirname, 'uploads')));
 
@@ -70,9 +80,11 @@ app.use('/', require('./routes/index'));
 app.use('/users', require('./routes/users'));
 app.use('/contas', require('./routes/contas'));
 app.use('/movimentos', require('./routes/movimentos'));
+app.use('/tasknotes', require('./routes/tasknotes'));
 
 /// catch 404 and forwarding to error handler
-app.use(function(req, res, next) {
+app.use(function( req, res, next) {
+    
     var err = new Error('Not Found');
     err.status = 404;
     next(err);
