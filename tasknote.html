@@ -1,0 +1,61 @@
+<!DOCTYPE html><html lang="en"><head><title>tasknote</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="tasknote"><meta name="groc-project-path" content="models/tasknote.js"><meta name="groc-github-url" content="https://github.com/Painatalman/despesas"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/Painatalman/despesas/blob/master/models/tasknote.js">models/tasknote.js</a></div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="hljs-pi">'use strict'</span>;
+<span class="hljs-keyword">var</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
+
+<span class="hljs-keyword">var</span> tasknoteSchema = <span class="hljs-keyword">new</span> mongoose.Schema({
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: <span class="hljs-literal">true</span>,
+        ref: <span class="hljs-string">'User'</span>,
+    },
+    title: {
+        type: <span class="hljs-built_in">String</span>,
+        required: <span class="hljs-literal">true</span>
+    },
+
+    description: {
+        type: <span class="hljs-built_in">String</span>,
+        required: <span class="hljs-literal">false</span>
+    },
+    image: {
+        type: <span class="hljs-built_in">String</span>
+    },
+
+    lista: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: <span class="hljs-string">'Lista'</span>,
+    },</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>for tasks</p></div></div><div class="code"><div class="wrapper">    date: {
+        type: <span class="hljs-built_in">Date</span>,
+    },
+    isUrgent: {
+        type: <span class="hljs-built_in">Boolean</span>,
+        required: <span class="hljs-literal">false</span>,</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>default: false</p></div></div><div class="code"><div class="wrapper">    },
+    isDone:{
+        type: <span class="hljs-built_in">Boolean</span>,
+        <span class="hljs-keyword">default</span>: <span class="hljs-literal">false</span>
+    },</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>meta</p></div></div><div class="code"><div class="wrapper">    date_added: {
+        type: <span class="hljs-built_in">Date</span>,
+        <span class="hljs-keyword">default</span>: <span class="hljs-built_in">Date</span>.now
+    },
+});</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>custom method to add string to end of name
+you can create more important methods like name validations or formatting
+you can also do queries and find similar users </p></div></div><div class="code"><div class="wrapper">tasknoteSchema.methods.isOverdue = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>check current dates</p></div></div><div class="code"><div class="wrapper">    
+    <span class="hljs-keyword">var</span> currentDate = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();
+    
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.date &gt;= currentDate;
+};
+
+tasknoteSchema.methods.isCurrent = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>check current dates</p></div></div><div class="code"><div class="wrapper">    
+    <span class="hljs-keyword">var</span> currentDate = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();
+    
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.date === currentDate;
+};</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>PRE/POST</p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>on every save, add the date</p></div></div><div class="code"><div class="wrapper">tasknoteSchema.pre(<span class="hljs-string">'save'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(next)</span> </span>{</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>get the current date</p></div></div><div class="code"><div class="wrapper">    <span class="hljs-keyword">var</span> currentDate = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>change the updated_at field to current date</p></div></div><div class="code"><div class="wrapper">    <span class="hljs-keyword">this</span>.date_updated = currentDate;</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>if created_at doesn&#39;t exist, add to that field</p></div></div><div class="code"><div class="wrapper">    <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.date_created)
+        <span class="hljs-keyword">this</span>.date_created = currentDate;
+
+    next();
+});
+
+<span class="hljs-keyword">var</span> Tasknote = mongoose.model(<span class="hljs-string">'Tasknote'</span>, tasknoteSchema);
+
+
+
+<span class="hljs-built_in">module</span>.exports = Tasknote;</div></div></div></div></body></html>
