@@ -112,7 +112,7 @@ router.post('/new', function(req, res) {
 
                     movimento.save(function(err, _movimento) {
                         if (err) {
-                            console.log(erro);
+                            console.log(err);
                             // eh preciso apagar o _schedule
                             // TODO: UNTESTED
                             Schedule.remove({
