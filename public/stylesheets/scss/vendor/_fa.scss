@@ -1,0 +1,31 @@
+// for 3rd party support
+
+// font-awesome
+$button-icon-padding: 5px;
+$button-icon-padding-small: 2px;
+$button-icon-padding-large: 15px;
+
+.fa-left{
+        padding-right: $button-icon-padding;
+    }
+    .fa-right{
+        padding-left: $button-icon-padding;
+    }
+    .fa-panel-right{
+        padding-left: $button-icon-padding*3;
+        transition:transform 1s ease;
+    }
+
+.fa-left-small{
+    padding-right: $button-icon-padding-small;
+}
+.fa-right-small{
+    padding-left: $button-icon-padding-small;
+}
+
+.fa-left-large{
+    padding-right: $button-icon-padding-large;
+}
+.fa-right-large{
+    padding-left: $button-icon-padding-large;
+}

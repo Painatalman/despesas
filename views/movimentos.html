@@ -1,42 +1,75 @@
 {% extends '_base.html' %}
 
 {% block content %}
-<div class="message">{{status}}</div>
-<form action="/movimentos/new" method="POST" name="movimento">
-<label for="title">Título</label>   <input type="text" name="title" id="">
-<label for="description">Descrição</label>   <textarea name="description" id="" cols="10" rows="5"></textarea>
-    <label for="isDespesa">Despesa?</label><input type="checkbox" name="isDespesa" checked>
-    <label for="scheme">Esquema</label><select name="scheme" id="scheme">
-            <option value="1">Regular</option>
-            <option value="0" selected>Lista</option>
-        </select>
-    <label for="schedule_type">Tipo Despesa</label>
-    <select name="expense_type">
-        <option value="fd">Alimentação</option>
-        <option value="sh" selected>Compras</option>
-        <option selected value="">Outros</option>
-    </select>
-    <label for="schedule_type">Tipo Crédito</label>
-    <select name="income_type">
-        <option value="s">Serviço/Salário</option>
-        <option value="g" selected>Oferta</option>
-        <option value="d" selected>Dívida</option>
-        <option selected value="">Outros</option>
-    </select>
-    <label for="date">Data</label><input type="date" name="date">
-    <label for="value">Valor</label><input type="number" name="value" step="0.01" min="0.00" >
-    <label for="schedule">Padrão?</label><input type="checkbox" name="isSchedule" value="1">
-    <label for="schedule_type">Tipo padrão</label>
-    <select name="schedule_type">
-        <option value="w">Semanal</option>
-        <option value="m" selected>Mensal</option>
-        <option value="a">Anual</option>
-    </select>
-    <label for="wasPaidByOther">Paga por outro?</label><input type="checkbox" name="wasPaidByOther" value="off">
-    <!-- TODO: add js to this, to associate -->
-    <input type="hidden" name="schedule_id" value="">
-    <input type="submit">
-</form>
+<div class="row">
+    <div class="message">{{status}}</div>
+</div>
+<div class="row">
+    <form action="/movimentos/new" method="POST" name="movimento">
+    <div class="input-field col s12 m4">
+        <label for="title">Título</label>   <input type="text" name="title" id="title">
+    </div>
+    
+    <div class="input-field col s12 m4">
+            <label for="date">Data</label><input type="date" name="date" id="date" class="datepicker">
+        </div>
+       <div class="input-field col s12 m4">
+            <label for="value">Valor</label><input type="number" name="value" id="value" step="0.01" min="0.00" >
+       </div>
+        <div class="col s12">
+            <input type="checkbox" name="isDespesa" id="isDespesa"checked><label for="isDespesa">Despesa?</label>
+        </div>
+        <div class="input-field col s12">
+        <label for="description">Descrição</label>   <textarea name="description" id="description" class="materialize-textarea" cols="10" rows="5"></textarea>
+    </div>
+        <div class="input-field col s12">
+            <label for="scheme">Esquema</label><select name="scheme" id="scheme">
+                    <option value="1">Regular</option>
+                    <option value="0" selected>Lista</option>
+                </select>
+        </div>
+        <div class="input-field col s12 m5">
+            <label for="expense_type">Tipo Despesa</label>
+            <select name="expense_type" id="expense_type">
+                <option value="fd">Alimentação</option>
+                <option value="sh" selected>Compras</option>
+                <option selected value="">Outros</option>
+            </select>
+        </div>
+        <div class="input-field col s12 m7">
+            <label for="income_type">Tipo Crédito</label>
+            <select name="income_type" id="income_type">
+                <option value="s">Serviço/Salário</option>
+                <option value="g" selected>Oferta</option>
+                <option value="d" selected>Dívida</option>
+                <option selected value="">Outros</option>
+            </select>
+        </div>
+        
+        <div class="col s12">
+            <p>
+                <input type="checkbox" name="isSchedule" value="1" id="isSchedule"><label for="schedule">Padrão?</label>
+            </p>
+            <label for="schedule_type">Tipo padrão</label>
+            <select name="schedule_type" id="schedule_type">
+                <option value="w">Semanal</option>
+                <option value="m" selected>Mensal</option>
+                <option value="a">Anual</option>
+            </select>
+        </div>
+        <div class="col s12">
+            <p>
+                <input type="checkbox" name="wasPaidByOther" value="off" id="wasPaidByOther"><label for="wasPaidByOther">Paga por outro?</label>
+            </p>
+        <p>
+            <div class="fixed-action-btn"  style="bottom: 45px; right: 24px;">
+                <input type="submit" class="floating btn-large red">
+            </div>
+        </p>
+        </div>
+        <input type="hidden" name="schedule_id" value="">
+    </form>
+</div>
 <table summary="All the movements... and shit" class="movements-table">
     <thead>
         <th scope="col">Title</th>
