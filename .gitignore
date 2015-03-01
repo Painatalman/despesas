@@ -1,2 +1,4 @@
 .sass-cache/
 public/stylesheets/style.css.map
+.DS_Store
+npm-debug.log

@@ -2,11 +2,24 @@
 module.exports = function( grunt) {
     'use strict';
 
-    
-
     // Project configuration.
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
+        imagemin: {
+            all: {
+                options: {
+                    optimizationLevel: 7
+                },
+                files: [{
+                    // Set to true to enable the following options…
+                    expand: true,
+                    // cwd is 'current working directory'
+                    src: ['<%= pkg.folders.public %>/**/*.png', '<%= pkg.folders.public %>/**/*.jpg','<%= pkg.folders.uploads %>/**/*.jpg','<%= pkg.folders.uploads %>/**/*.png'],
+                    // Could also match cwd line above. i.e. project-directory/img/
+                    // dest: IMAGES,
+                }]
+            }
+        },
         sass: {
             dist: { // Target
                 options: { // Target options
@@ -65,11 +78,18 @@ module.exports = function( grunt) {
             },
             styles: {
                 files: ['<%= pkg.folders.public %>/<%= pkg.folders.styles %>/<%= pkg.folders.styles_scss %>/**/*.scss'],
-                tasks: ['sass']
+                tasks: ['sass'],
+                options: {
+                  livereload: true,
+                },
             },
             minstyles: {
                 files: ['<%= pkg.folders.public %>/<%= pkg.folders.styles %>/*.css', '<%= pkg.folders.public %>/<%= pkg.folders.styles %>/!*.min.css'],
                 tasks: ['cssmin']
+            },
+            minimages: {
+                files: ['<%= pkg.folders.public %>/**/*.png', '<%= pkg.folders.public %>/**/*.jpg','<%= pkg.folders.uploads %>/**/*.jpg','<%= pkg.folders.uploads %>/**/*.png'],
+                tasks: ['imagemin']
             },
             // scripts: {
             //     files: ['**/*.js'],
@@ -87,6 +107,7 @@ module.exports = function( grunt) {
     grunt.loadNpmTasks('grunt-shell-spawn');
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
+    grunt.loadNpmTasks('grunt-contrib-imagemin');
     grunt.loadNpmTasks('grunt-contrib-watch');
     // grunt.loadNpmTasks('grunt-bootlint');
 

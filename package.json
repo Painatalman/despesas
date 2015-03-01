@@ -11,7 +11,8 @@
     "styles": "stylesheets",
     "styles_min": "min",
     "styles_scss": "scss",
-    "scripts": "scripts"
+    "scripts": "scripts",
+    "uploads": "uploads"
   },
   "dependencies": {
     "express": "~4.0.0",

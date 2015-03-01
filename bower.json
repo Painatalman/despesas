@@ -1,0 +1,28 @@
+{
+  "name": "Despesas",
+  "version": "0.0.1",
+  "homepage": "https://github.com/Painatalman/despesas",
+  "authors": [
+    "Miguel Costa <maiquedi@gmail.com>"
+  ],
+  "description": "Gestor de despesas da casa",
+  "main": "app.js",
+  "moduleType": [
+    "node"
+  ],
+  "keywords": [
+    "expenses"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "materialize": "~0.95.2"
+  }
+}
