@@ -1,0 +1,20 @@
+<!DOCTYPE html><html lang="en"><head><title>item</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="item"><meta name="groc-project-path" content="models/item.js"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">models/item.js</div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="hljs-keyword">var</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
+
+<span class="hljs-keyword">var</span> itemSchema = <span class="hljs-keyword">new</span> mongoose.Schema({
+    name: {
+        type: <span class="hljs-built_in">String</span>,
+        required: <span class="hljs-literal">true</span>
+    },
+    quantity: {
+        type: <span class="hljs-built_in">Number</span>,
+        required: <span class="hljs-literal">true</span>,
+        <span class="hljs-keyword">default</span>: <span class="hljs-number">1</span>
+    },
+    price: {
+        type: <span class="hljs-built_in">Number</span>,
+        required: <span class="hljs-literal">true</span>
+    },
+});
+
+
+<span class="hljs-built_in">module</span>.exports = mongoose.model(<span class="hljs-string">'Item'</span>, itemSchema);</div></div></div></div></body></html>

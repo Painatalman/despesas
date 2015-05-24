@@ -1,0 +1,44 @@
+<!DOCTYPE html><html lang="en"><head><title>user</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="user"><meta name="groc-project-path" content="models/user.js"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path">models/user.js</div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="hljs-pi">'use strict'</span>;
+<span class="hljs-keyword">var</span> mongoose = <span class="hljs-built_in">require</span>(<span class="hljs-string">'mongoose'</span>);
+
+<span class="hljs-keyword">var</span> userSchema = <span class="hljs-keyword">new</span> mongoose.Schema({
+    username: {
+        type: <span class="hljs-built_in">String</span>,
+        required: <span class="hljs-literal">true</span>,
+        unique: <span class="hljs-literal">true</span>
+    },
+    name: <span class="hljs-built_in">String</span>,
+    password: {
+        type: <span class="hljs-built_in">String</span>,
+        required: <span class="hljs-literal">true</span>
+    },
+    admin: {
+        type: <span class="hljs-built_in">Boolean</span>,
+        <span class="hljs-keyword">default</span>: <span class="hljs-literal">false</span>
+    },
+    email: <span class="hljs-built_in">String</span>,
+    isMale: <span class="hljs-built_in">Boolean</span>,
+    date_created: <span class="hljs-built_in">Date</span>,
+    date_updated: <span class="hljs-built_in">Date</span>,
+});</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>custom method to add string to end of name
+you can create more important methods like name validations or formatting
+you can also do queries and find similar users </p></div></div><div class="code"><div class="wrapper">userSchema.methods.dudify = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> </span>{</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>add some stuff to the users name</p></div></div><div class="code"><div class="wrapper">    <span class="hljs-keyword">this</span>.name = <span class="hljs-keyword">this</span>.name + <span class="hljs-string">'-dude'</span>;
+
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.name;
+};
+
+<span class="hljs-keyword">var</span> User = mongoose.model(<span class="hljs-string">'User'</span>, userSchema);</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>custom method to add string to end of name
+you can create more important methods like name validations or formatting
+you can also do queries and find similar users </p></div></div><div class="code"><div class="wrapper">userSchema.methods.dudify = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>add some stuff to the users name</p></div></div><div class="code"><div class="wrapper">    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.name) {
+        <span class="hljs-keyword">return</span> (<span class="hljs-keyword">this</span>.name + <span class="hljs-string">'-dude'</span>);
+    } 
+
+    <span class="hljs-keyword">return</span> <span class="hljs-string">'nameless dude'</span>;
+
+};</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>on every save, add the date</p></div></div><div class="code"><div class="wrapper">userSchema.pre(<span class="hljs-string">'save'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(next)</span> </span>{</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>get the current date</p></div></div><div class="code"><div class="wrapper">    <span class="hljs-keyword">var</span> currentDate = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>();</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>change the updated_at field to current date</p></div></div><div class="code"><div class="wrapper">    <span class="hljs-keyword">this</span>.date_updated = currentDate;</div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>if created_at doesn&#39;t exist, add to that field</p></div></div><div class="code"><div class="wrapper">    <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.date_created)
+        <span class="hljs-keyword">this</span>.date_created = currentDate;
+
+    next();
+});
+
+<span class="hljs-built_in">module</span>.exports = User;</div></div></div></div></body></html>

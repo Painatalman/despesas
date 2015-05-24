@@ -39,16 +39,17 @@ router.route('/')
 
 // obter todas as memorias e formulario
 router.get('/', function(req, res) {
-
+    // console.log("ready!");
     Movimento.find({
             conta: req.session.user_id
-        }, 
+        },
         null, // array of fields to return
         {
             skip: 0,
             limit: 0,
             sort: {
-                date: -1
+                date: -1,
+                dateAdded: -1
             }
         },
         function(error, movimentos) {

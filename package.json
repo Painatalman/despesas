@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "browserify-build": "browserify"
   },
   "folders": {
     "root": "",
@@ -12,7 +13,8 @@
     "styles_min": "min",
     "styles_scss": "scss",
     "scripts": "scripts",
-    "uploads": "uploads"
+    "uploads": "uploads",
+    "docs": "docs"
   },
   "dependencies": {
     "express": "~4.0.0",
@@ -29,7 +31,8 @@
     "bcrypt": "^0.8.0",
     "mongoose-forms": "0.0.5",
     "validator": "^3.27.0",
-    "connect-mongo": "^0.7.0"
+    "connect-mongo": "^0.7.0",
+    "grunt-contrib-imagemin": "^0.9.3"
   },
   "devDependencies": {
     "node-inspector": "^0.8.3",
@@ -39,6 +42,9 @@
     "grunt-contrib-cssmin": "^0.11.0",
     "grunt-contrib-watch": "^0.6.1",
     "gulp-compass": "^2.0.3",
-    "gulp-minify-css": "^0.4.2"
+    "gulp-minify-css": "^0.4.2",
+    "grunt-notify": "^0.4.1",
+    "grunt-groc": "^0.5.0",
+    "browserify": "^10.2.0"
   }
 }
