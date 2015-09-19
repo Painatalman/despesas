@@ -1,7 +1,13 @@
 module.exports = {
-	'url': 'mongodb://localhost/despesas',
-	'init': function(){
+	local: 'mongodb://localhost/despesas',
+  remote: 'mongodb://Rambovskii:Ramborambo999@ds031631.mongolab.com:31631/despesas',
+	init: function(isRemote){
 		var mongoose = require('mongoose');
-		mongoose.connect(this.url);
+
+    if (!isRemote) {
+      mongoose.connect(this.local);
+    }
+    else
+		  mongoose.connect(this.remote);
 	}
 }

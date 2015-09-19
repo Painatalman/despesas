@@ -24,7 +24,8 @@ var app = express();
 /////////////////////////////////////////////
 
 var dbConfig = require('./config/dbConfig.js');
-dbConfig.init();
+// if first parameter is set to true, it will connect to the remote database
+dbConfig.init(true);
 
 ////////////////////////////////////////////
 //
@@ -42,11 +43,11 @@ app.use(session({
     secret: "Ilikemetalgear",
     resave: false,
     saveUninitialized: true,
-    store: new MongoStore({
-        db: 'despesas',
-        host: '127.0.0.1',
-        //port:3355
-    })
+    // store: new MongoStore({
+    //     db: 'despesas',
+    //     host: '127.0.0.1',
+    //     //port:3355
+    // })
 }));
 app.use(require('node-compass')({mode: 'expanded'}));
 
@@ -84,7 +85,7 @@ app.use('/tasknotes', require('./routes/tasknotes'));
 
 /// catch 404 and forwarding to error handler
 app.use(function( req, res, next) {
-    
+
     var err = new Error('Not Found');
     err.status = 404;
     next(err);
