@@ -57,7 +57,10 @@ app.use(require('node-compass')({mode: 'expanded'}));
 // VIEWS and VIEW ENGINE
 //
 /////////////////////////
-app.set('views', path.join( __dirname, 'views'));
+
+process.env.PWD = process.cwd();
+
+app.set('views', path.join( process.env.PWD, 'views'));
 
 var swig = require('swig');
 app.engine('.html', swig.renderFile);
@@ -69,7 +72,7 @@ app.set('view engine', 'html');
 // STATIC FILE DIRECTORIES
 //
 ///////////////////////////////////////
-app.use("/", express.static(path.join( __dirname, 'public')));
+app.use("/", express.static(path.join( process.env.PWD, 'public')));
 // app.use(express.static(path.join(__dirname, 'public')));
 // app.use('/uploads',express.static(path.join(__dirname, 'uploads')));
 
