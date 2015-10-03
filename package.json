@@ -8,7 +8,8 @@
     "browserify-build": "browserify"
   },
   "engines": {
-    "node": "0.12.4"
+    "node": "0.12.4",
+    "npm": "2.13.3"
   },
   "folders": {
     "root": "",
