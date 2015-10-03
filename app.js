@@ -43,11 +43,12 @@ app.use(session({
     secret: "Ilikemetalgear",
     resave: false,
     saveUninitialized: true,
-    // store: new MongoStore({
-    //     db: 'despesas',
-    //     host: '127.0.0.1',
-    //     //port:3355
-    // })
+    store: new MongoStore({
+        url: dbConfig.remote,
+        // db: 'despesas',
+        // host: '127.0.0.1',
+        // port: 27017
+    })
 }));
 app.use(require('node-compass')({mode: 'expanded'}));
 
@@ -105,13 +106,13 @@ app.use(function( req, res, next) {
 //     });
 // }
 
-// production error handler
+// prod error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.render('error', {
         message: err.message,
-        error: err
+        error: err // for prod, replace err with {}
     });
 });
 

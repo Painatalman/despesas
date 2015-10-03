@@ -9,5 +9,7 @@ module.exports = {
     }
     else
 		  mongoose.connect(this.remote);
+
+    mongoose.connection.on('error', console.error.bind(console, 'MongoDB connection error:'));
 	}
 }
