@@ -1,11 +1,15 @@
 {
   "name": "Despesas",
-  "version": "0.0.1",
+  "description": "Expense management",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
     "browserify-build": "browserify"
   },
+  "engines": {
+    "node": "0.12.4"
+  }
   "folders": {
     "root": "",
     "public": "public",
