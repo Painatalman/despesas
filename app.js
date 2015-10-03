@@ -1,3 +1,5 @@
+process.env.PWD = process.cwd();
+
 ////////////////////////////////////////////
 //
 // DEPENDENCIES
@@ -58,7 +60,7 @@ app.use(require('node-compass')({mode: 'expanded'}));
 //
 /////////////////////////
 
-process.env.PWD = process.cwd();
+
 
 app.set('views', path.join( process.env.PWD, 'views'));
 
