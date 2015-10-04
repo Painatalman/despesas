@@ -45,7 +45,7 @@ function validate_user(username, password) {
 }
 
 // encrypt shit
-var bcrypt = require('bcrypt');
+var bcrypt = require('bcryptjs');
 
 // user model
 var User = require('../models/user.js');
