@@ -7,19 +7,30 @@
 <div class="row">
     <form action="/movimentos/new" method="POST" name="movimento">
     <div class="input-field col s12 m4">
-        <label for="title">Título</label>   <input type="text" name="title" id="title">
+        <i class="material-icons prefix">store</i>
+        <label for="title">Título</label>
+        <input type="text" name="title" id="title">
     </div>
 
-    <div class="col s12 m4">
+    <div class="input-field col s12 m4">
+            <i class="material-icons prefix">today</i>
             <label for="date">Data</label><input type="date" name="date" id="date" class="datepicker">
         </div>
        <div class="input-field col s12 m4">
             <label for="value">Valor</label><input type="number" name="value" id="value" step="0.01" min="0.00" >
        </div>
-        <div class="col s12">
-            <input type="checkbox" name="isDespesa" id="isDespesa"checked><label for="isDespesa">Despesa?</label>
+        <div class="input-field col s12 m4">
+            <div class="switch">
+    <label>
+      Ganho
+      <input type="checkbox" name="isDespesa" id="isDespesa"checked>
+      <span class="lever"></span>
+      Despesa
+    </label>
+  </div>
         </div>
         <div class="input-field col s12">
+        <i class="material-icons prefix">subject</i>
         <label for="description">Descrição</label>   <textarea name="description" id="description" class="materialize-textarea" cols="10" rows="5"></textarea>
     </div>
         <div class="input-field col s12">
@@ -77,7 +88,7 @@
         <th scope="col">Date</th>
     </thead>
     {% for movement in movimentos %}
-    <tr class="{% if loop.first %} first{% endif %} {% if movement.isDespesa %} movements-table__row--despesa {% else %} movements-table__row--credito {% endif %} {% if movement.wasPaidByOther %} movements-table__row--paid-by-other {% endif %}" data-id={{movement.id}} >
+    <tr class="{% if loop.first %} first{% endif %} {% if movement.isDespesa %} movements-table__row--despesa red {% else %} movements-table__row--credito green {% endif %} lighten-3 {% if movement.wasPaidByOther %} movements-table__row--paid-by-other {% endif %}" data-id={{movement.id}} >
         <td>
             {{movement.title}}
         </td>
