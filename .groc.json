@@ -1,4 +1,0 @@
-{
-  "glob": ["models/*.js", "README.md", "public/stylesheets/scss/*.scss", "public/scripts/*.js"],
-  "github": false
-}

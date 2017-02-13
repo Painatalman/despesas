@@ -2,5 +2,5 @@
 public/stylesheets/style.css.map
 .DS_Store
 npm-debug.log
-node_modules/**/*
+node_modules/
 npm-debug.log.*

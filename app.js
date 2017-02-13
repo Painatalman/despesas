@@ -8,8 +8,6 @@ process.env.PWD = process.cwd();
 
 var express = require('express');
 var path = require('path');
-var favicon = require('static-favicon');
-var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require("express-session");
@@ -35,9 +33,6 @@ dbConfig.init(true);
 // (or the APP.USE part)
 //
 /////////////////////////////////////////////
-
-app.use(favicon());
-app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
@@ -52,7 +47,6 @@ app.use(session({
         // port: 27017
     })
 }));
-app.use(require('node-compass')({mode: 'expanded'}));
 
 ////////////////////////////////
 //
@@ -74,7 +68,6 @@ app.set('view engine', 'html');
 // STATIC FILE DIRECTORIES
 //
 ///////////////////////////////////////
-console.log(process.env.PWD);
 app.use('/public', express.static(path.join( process.env.PWD, 'public')));
 // app.use(express.static(path.join(__dirname, 'public')));
 // app.use('/uploads',express.static(path.join(__dirname, 'uploads')));
@@ -124,10 +117,3 @@ app.use(function(err, req, res, next) {
 
 
 module.exports = app;
-
-var debug = require('debug')('my-application');
-app.set('port', process.env.PORT || 5000);
-
-var server = app.listen(app.get('port'), function() {
-  debug('Express server listening on port ' + server.address().port);
-});
