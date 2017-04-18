@@ -13,18 +13,16 @@ module.exports = {
   },
   module: {
     loaders: [{
-      includes: path.,
-      loader: 'babel',
+      include: mainFolder,
+      test: /\.js$/,
+      loader: 'babel-loader',
       query: {
         presets: ['react', 'es2015', 'stage-0']
       }
     }]
   },
-  resolve: {
-    extensions: ['', '.js', '.jsx']
-  },
   devServer: {
     historyApiFallback: true,
-    contentBase: './'
+    contentBase: path.resolve(__dirname, './')
   }
 };

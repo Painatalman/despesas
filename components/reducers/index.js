@@ -1,7 +1,10 @@
 import { combineReducers } from 'redux';
+import expenseReducer from './expenses';
+import authenticationReducer from './authentication';
 
 const rootReducer = combineReducers({
-  expenses: (state = []) => state
+  expenses: expenseReducer,
+  authenticated: authenticationReducer
 });
 
 export default rootReducer;

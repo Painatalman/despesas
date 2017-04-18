@@ -2,10 +2,16 @@ import React, {Component} from 'react';
 import ExpenseFormPriceInput from './ExpenseFormPriceInput';
 import ExpenseFormTitleInput from './ExpenseFormTitleInput';
 
-export default class ExpenseForm extends Component {
+// step 1 to convert this into a redux container component...
+// import the 'connect'
+import { connect } from 'react-redux';
+import * as actions from '../actions';
+
+class ExpenseForm extends Component {
   constructor(props) {
     super(props);
 
+    // remember: local state is FINE
     this.state = {
       title: '',
       price: ''
@@ -26,6 +32,9 @@ export default class ExpenseForm extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
+
+    // provided by connect
+    this.props.saveExpense(this.state.expense);
 
     this.setState({
       title: '',
@@ -49,3 +58,7 @@ export default class ExpenseForm extends Component {
     )
   }
 }
+
+// the first parameter is 'mapStateToProps'
+// the second parameter... is actions
+export default connect(null, actions)(ExpenseForm);
