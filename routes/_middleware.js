@@ -1,16 +1,12 @@
+const passportConfig = require('../config/passportConfig');
+const passport = require('passport');
+
 // para ver se esta autenticado
 var helpers = {
-
-
-isAuthenticated: function (req, res, next){
-    // http://stackoverflow.com/questions/7990890/how-to-implement-login-auth-in-node-js/8003291#8003291
-    if (!req.session.user_id) {
-        res.redirect('/users/login');
-  } else {
-        next();
-  }
-}
-
+  // checks if json web token is already generated
+  isAuthenticated: passport.authenticate('jwt', {session: false}),
+  // checks if user is logged in
+  isSignedIn: passport.authenticate('local', {session: false}),
 }
 
 module.exports = helpers;

@@ -30,11 +30,20 @@ class ExpenseForm extends Component {
     })
   }
 
+  handlePrinceInputBlur() {
+    this.setState({
+      price: parseFloat(this.state.price).toFixed(2)
+    });
+  }
+
   handleSubmit(e) {
     e.preventDefault();
 
     // provided by connect
-    this.props.saveExpense(this.state.expense);
+    this.props.saveExpense({
+      title: this.state.title,
+      price: this.state.price
+    });
 
     this.setState({
       title: '',
@@ -48,6 +57,7 @@ class ExpenseForm extends Component {
         <ExpenseFormPriceInput
           value={this.state.price}
           onChange={this.handlePriceChange.bind(this)}
+          onBlur={this.handlePrinceInputBlur.bind(this)}
         />
         <ExpenseFormTitleInput 
           value={this.state.title}

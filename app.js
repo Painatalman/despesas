@@ -13,6 +13,7 @@ var bodyParser = require('body-parser');
 var session = require("express-session");
 var MongoStore = require('connect-mongo')(session);
 
+// var morgan = require('morgan');
 
 // START EXPRESS
 var app = express();
@@ -33,6 +34,10 @@ dbConfig.init(true);
 // (or the APP.USE part)
 //
 /////////////////////////////////////////////
+
+// log incoming requests for debugging
+// app.use(morgan('combined'));
+// each request will be parsed as JSON
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser());
@@ -81,6 +86,9 @@ app.use('/', require('./routes/index'));
 app.use('/users', require('./routes/users'));
 app.use('/contas', require('./routes/contas'));
 app.use('/movimentos', require('./routes/movimentos'));
+app.use('/tasknotes', require('./routes/tasknotes'));
+
+// for the react app
 app.use('/tasknotes', require('./routes/tasknotes'));
 
 /// catch 404 and forwarding to error handler

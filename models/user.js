@@ -1,5 +1,6 @@
 'use strict';
 var mongoose = require('mongoose');
+var bcrypt = require('bcryptjs');
 
 var userSchema = new mongoose.Schema({
     username: {
@@ -16,7 +17,10 @@ var userSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    email: String,
+    email: {
+        type: String,
+        lowercase: true
+    },
     isMale: Boolean,
     date_created: Date,
     date_updated: Date,
@@ -24,7 +28,7 @@ var userSchema = new mongoose.Schema({
 
 // custom method to add string to end of name
 // you can create more important methods like name validations or formatting
-// you can also do queries and find similar users 
+// you can also do queries and find similar users
 userSchema.methods.dudify = function() {
     // add some stuff to the users name
     this.name = this.name + '-dude';
@@ -32,25 +36,34 @@ userSchema.methods.dudify = function() {
     return this.name;
 };
 
-var User = mongoose.model('User', userSchema);
+
 
 // custom method to add string to end of name
 // you can create more important methods like name validations or formatting
-// you can also do queries and find similar users 
-userSchema.methods.dudify = function () {
-    // add some stuff to the users name
-    if (this.name) {
-        return (this.name + '-dude');
-    } 
+// you can also do queries and find similar users
+userSchema.methods.comparePassword = function(candidatePassword, callback) {
+  // console.log(candidatePassword);
 
-    return 'nameless dude';
+  bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
+    // console.log(err, isMatch);
 
-};
+    if (err) {
+      return callback(err);
+    }
+
+    // console.log(isMatch)
+
+    return callback(null, isMatch);
+  })
+}
 
 // on every save, add the date
 userSchema.pre('save', function(next) {
+  // console.log('saving schema')
+
     // get the current date
     var currentDate = new Date();
+    var user = this;
 
     // change the updated_at field to current date
     this.date_updated = currentDate;
@@ -59,7 +72,12 @@ userSchema.pre('save', function(next) {
     if (!this.date_created)
         this.date_created = currentDate;
 
+    var salt = 10;
+    user.password = bcrypt.hashSync(user.password, salt);
+
     next();
 });
+
+var User = mongoose.model('User', userSchema);
 
 module.exports = User;

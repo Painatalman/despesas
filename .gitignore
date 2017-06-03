@@ -4,3 +4,4 @@ public/stylesheets/style.css.map
 npm-debug.log
 node_modules/
 npm-debug.log.*
+storybook-static/

@@ -12,11 +12,15 @@ describe('App' , () => {
     expect(component).to.exist;
   });
 
-  it('shows an expense form', () => {
-    expect(component.find('.expense-form')).to.exist;
-  });
+    describe('expense page', () => {
+      it('shows an expense form', () => {
+        expect(component.find('.expense-form')).to.exist;
+      });
 
-  it('shows an expense list', () => {
-    expect(component.find('.expense-list')).to.exist;
-  });
+      it('shows an expense list', () => {
+        expect(component.find('.expense-list')).to.exist;
+      }); 
+    });
+
+  // TODO: test adding an expense
 });

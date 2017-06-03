@@ -29,6 +29,20 @@ describe('Expense Form', () => {
     expect(component.find('button')).to.exist;
   });
 
+  it('fires the saveExpense props, if valid, with an object with two properties: price and title', () => {
+    let expenseValues = {
+      title: 'new expense',
+      value: 45.50
+    }
+    
+    component.find('input[name=title]').simulate('change', expenseValues.title);
+    component.find('input[name=price]').simulate('change', expenseValues.price);
+  
+    component.simulate('submit');
+
+    console.log(component.props);
+})
+
   describe('Entering title', () => {
     let inputNode;
 
@@ -70,5 +84,8 @@ describe('Expense Form', () => {
       
       expect(inputNode).to.have.value('');
     });
+
+
   })
+
 });

@@ -2,22 +2,29 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
-import { Router, Route, browserHistory } from 'react-router';
+import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
-import App from './components/app';
-import Expenses from './components/expenses';
-import About from './components/about';
+import requireAuth from './components/requireAuthentication';
+import App from './components/App';
+import Expenses from './components/Expenses';
+import About from './components/About';
+import UserList from './components/UserList';
+import Home from './components/Home';
 
 import reducers from './reducers';
 
-const createStoreWithMiddleware = applyMiddleware()(createStore);
+import Async from './middlewares/asyncPromise';
+
+const createStoreWithMiddleware = applyMiddleware(Async)(createStore);
 
 ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers)}>
-    <Router history={ browserHistory}>
+    <Router history={browserHistory}>
       <Route path="/" component={App}>
-        <Route path="expenses" component={Expenses}></Route>
+        <IndexRoute component={Home} />
+        <Route path='expenses' component={requireAuth(Expenses)} />
         <Route path="about" component={About}></Route>
+        <Route path="users" component={requireAuth(UserList)}></Route>
       </Route>
     </Router>
   </Provider>

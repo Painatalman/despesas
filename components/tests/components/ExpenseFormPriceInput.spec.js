@@ -30,17 +30,39 @@ describe('Expense Form Price Input', () => {
 
   describe('Entering price', () => {
     let inputNode;
-  beforeEach(() => {
-    inputNode = component.find('input');
-    inputNode.simulate('change', 25)
+
+    beforeEach(() => {
+      inputNode = component.find('input');   
+    });
+
+    // either we add state to this, or these checks must go to the Expense Form itself
+    // this may end up becoming one of those uncontrolled components
+    it('should allow integer numbers and convert it to decimal', () => {
+      inputNode.simulate('change', 20);
+      inputNode.simulate('blur');
+      expect(inputNode.val()).equal('20.00');
+    });
+
+    it('should allow decimal numbers up to 2 cases', () => {
+      inputNode.simulate('change', 20.25);
+      expect(inputNode.val()).equal('20.25');
+
+      inputNode.simulate('change', 20.255);
+      expect(inputNode.val()).equal('20.25');
+    });
+
+    it('should not allow text with no numbers', () => {
+      inputNode.simulate('change', 'Bla bla bla - prince of all saiyans!');
+      inputNode.simulate('blur');
+      expect(inputNode.val()).equal('');
   });
 
-  it('should not allow text', () => {
-    throw new Error();
-  })
-  
-  it('should call the onChange props method', () => {
-    throw new Error();
+    it('should just use the numbers when a mix of text and numbers is included', () => {
+      inputNode.simulate('change', 'Bla bla bla - prince of all saiyans!');
+    });
+    
+    it('should call the onChange props method', () => {
+      throw new Error();
+    });
   });
-})
 });
