@@ -1,13 +1,14 @@
 var path = require('path');
 
 var mainFolder = path.join(__dirname, 'components');
+var publicFolder = path.join(__dirname, 'public/scripts');
 
 module.exports = {
   entry: [
     path.join(mainFolder, 'index.js')
   ],
   output: {
-    path: mainFolder,
+    path: publicFolder,
     publicPath: '/',
     filename: 'bundle.js'
   },
@@ -21,6 +22,7 @@ module.exports = {
       }
     }]
   },
+  devtool: 'source-map',
   devServer: {
     historyApiFallback: true,
     contentBase: path.resolve(__dirname, './')

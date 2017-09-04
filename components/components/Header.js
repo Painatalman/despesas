@@ -5,14 +5,27 @@ import { connect } from 'react-redux';
 import {authenticate} from '../actions';
 
 class Header extends Component {
-    authButton() {
+    getAuthLinks() {
         if (this.props.authenticated) {
-            return <button onClick={() => this.props.authenticate(false)}>Sign Out</button>
+            return [
+                (<li key="signout" className="nav-item">
+                    <Link to="/signout">Logout</Link>
+                </li>),
+                (<li key="expenses" className="nav-item">
+                    <Link to="/expenses">Expenses</Link>
+                </li>)
+            ];
         } else {
-            return <button onClick={() => this.props.authenticate(true)}>Sign In</button>
+            return [(
+                <li key="signinform" className="nav-item">
+                    <Link to="/signinform">Login</Link>
+                </li>),
+                (<li key="registerform" className="nav-item">
+                    <Link to="/registerform">Register</Link>
+                </li>)];
         }
-        
     }
+
     render() {
         return(
             <nav className="navbar navbar-light">
@@ -20,18 +33,7 @@ class Header extends Component {
                     <li className="nav-item">
                         <Link to="/">Home</Link>
                     </li>
-                    <li className="nav-item">
-                        <Link to="/expenses">Expenses</Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link to="/users">Users</Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link to="/about">About</Link>
-                    </li>
-                    <li className="nav-item">
-                        {this.authButton()}
-                    </li>  
+                    {this.getAuthLinks().map( (link) => link)}
                 </ul>
             </nav>
         );
@@ -40,7 +42,7 @@ class Header extends Component {
 
 export default connect(function mapStateToProps(state){
     return {
-        authenticated: state.authenticated
+        authenticated: state.auth.authenticated
     }
 }, {
     authenticate: authenticate

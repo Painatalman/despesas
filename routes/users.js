@@ -63,8 +63,6 @@ function validate_user(username, password) {
     return errors;
 }
 
-
-
 // login
 router.get('/login', function(req, res) {
     // console.log(req.session);
@@ -82,7 +80,9 @@ router.get('/register', function(req, res) {
 // process login
 router.post('/login', middle.isSignedIn, function(req, res, next) {
     // passport.js CONVENIENTLY maps the user to req.user
-    // console.log('here', req);
+    // most of the logic is in middel.isSignedIn
+    // it will ONLY send the token if it passes the middleware check
+    // console.log(req);
     res.send({token: generateTokenForUser(req.user)});
 });
 

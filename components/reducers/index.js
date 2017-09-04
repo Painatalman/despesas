@@ -3,10 +3,14 @@ import expenseReducer from './expenses';
 import authenticationReducer from './authentication';
 import userReducer from './users';
 
+// this part relates to the SignInForm
+import { reducer as formReducer } from 'redux-form';
+
 const rootReducer = combineReducers({
   expenses: expenseReducer,
-  authenticated: authenticationReducer,
-  users: userReducer
+  auth: authenticationReducer,
+  users: userReducer,
+  form: formReducer
 });
 
 export default rootReducer;

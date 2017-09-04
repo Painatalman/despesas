@@ -10,7 +10,6 @@ var localOptions = {
   passwordField: 'password'
 };
 var localLogin = new LocalStrategy(localOptions, function(username, password, done){
-  // console.log(username, password);
 
   User.findOne({
       'username': username
@@ -25,7 +24,7 @@ var localLogin = new LocalStrategy(localOptions, function(username, password, do
           // console.log(user, isMatch);
 
           if (err) {
-            return done(err);
+            return done(err, false);
           } else if(isMatch) {
             return done(null, user)
           } else {
@@ -33,7 +32,7 @@ var localLogin = new LocalStrategy(localOptions, function(username, password, do
           }
         })
       } else {
-          return done('user nao existe');
+          return done('user nao existe', false);
       }
   });
 });
@@ -49,7 +48,12 @@ var jwtLogin = new JwtStrategy(jwtOptions, function(payload, done){
     // See if the user ID in the payload exists in our database
     // If it does, call 'done' with that user
     // Otherwise, call 'done' with no user object
+
+    // console.log(payload);
+
     User.findById(payload.sub, function(err, user) {
+        // console.log(err, user);
+        
         if (err) {
             // error, no user
             return done(err, false);
